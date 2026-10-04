@@ -36,3 +36,9 @@ def get_device(name: str):
     return device
 
 
+@app.post("/devices", status_code=201)
+def create_device(device: Device):
+    new_device = device.model_dump()
+    devices.insert_one(new_device)
+    new_device.pop("_id")
+    return new_device
